@@ -2,32 +2,87 @@
   margin-top: 2rem;
   text-align: center;
 }
-.forecast-header {
+
+/* Updated to match component class names */
+.forecast-tabs {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.forecast-button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  background-color: #f8f9fa;
+
+.forecast-tab {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #1e3c72;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  min-width: 100px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.forecast-button:hover,
-.forecast-button.active {
-  background-color: #3b82f6;
+
+.forecast-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.forecast-tab:hover::before {
+  left: 100%;
+}
+
+.forecast-tab:hover {
+  background: linear-gradient(135deg, #ff6b35 0%, #1e3c72 50%, #2a5298 100%);
   color: white;
-  border-color: #3b82f6;
+  border-color: #ff6b35;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
 }
+
+.forecast-tab.active {
+  background: linear-gradient(135deg, #ff6b35 0%, #2a5298 50%, #1e3c72 100%);
+  color: white;
+  border-color: #ff6b35;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.5);
+}
+
+.forecast-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background-color: #fbbf24;
+  border-radius: 2px;
+}
+
+.forecast-tab:active {
+  transform: translateY(0px);
+  transition: transform 0.1s;
+}
+
+/* Keep the existing forecast list styles */
 .forecast-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
 }
+
 .forecast-item {
   background-color: #fff;
   border-radius: 10px;
@@ -36,15 +91,18 @@
   width: 150px;
   text-align: center;
 }
+
 .forecast-date,
 .forecast-time {
   font-weight: 600;
 }
+
 .forecast-temp {
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0.5rem 0;
 }
+
 .forecast-icon {
   width: 60px;
   height: 60px;
