@@ -1,0 +1,149 @@
+.saved-locations {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 16px;
+  color: white;
+}
+
+.saved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.save-current-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.save-current-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.save-current-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  color: #4CAF50;
+}
+
+.toggle-saved-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.toggle-saved-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.saved-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.saved-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.saved-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.saved-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.saved-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2px;
+}
+
+.location-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 12px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.location-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.location-name {
+  font-weight: 400;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .saved-locations {
+    padding: 14px;
+  }
+  
+  .saved-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .toggle-saved-btn {
+    align-self: center;
+  }
+  
+  .location-btn {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}

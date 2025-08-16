@@ -1,0 +1,217 @@
+.hourly-forecast-new {
+  width: 100%;
+}
+
+.hourly-scroll-container {
+  display: flex;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: var(--spacing-xs) 0 var(--spacing-md);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.hourly-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.hourly-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.hourly-item-new {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: var(--spacing-sm);
+  min-width: 90px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideInUp 0.5s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hourly-item-new::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hourly-item-new:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hourly-item-new:hover::before {
+  opacity: 1;
+}
+
+.hourly-item-new.current {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-item-new.current::before {
+  opacity: 1;
+  background: linear-gradient(90deg, transparent, var(--text-accent), transparent);
+}
+
+.hour-time-new {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hourly-item-new.current .hour-time-new {
+  color: var(--text-accent);
+  font-weight: 600;
+}
+
+.hour-icon-new {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  margin: 4px 0;
+}
+
+.hour-temp-new {
+  margin: 2px 0;
+}
+
+.temp-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.hour-desc-new {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.hour-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.detail-icon {
+  font-size: 0.8rem;
+}
+
+.detail-value {
+  font-weight: 500;
+}
+
+/* Night theme adjustments */
+.app.night .hourly-item-new {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.app.night .hourly-item-new:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.app.night .hourly-item-new.current {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .hourly-item-new {
+    min-width: 75px;
+    padding: 10px 8px;
+  }
+  
+  .hour-icon-new {
+    font-size: 1.5rem;
+  }
+  
+  .temp-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hourly-item-new {
+    min-width: 65px;
+    padding: 8px 6px;
+  }
+  
+  .hour-details {
+    display: none;
+  }
+  
+  .hour-desc-new {
+    font-size: 0.7rem;
+    min-height: 20px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .hourly-item-new {
+    animation: none;
+  }
+  
+  .hourly-item-new:hover {
+    transform: none;
+  }
+}
