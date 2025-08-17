@@ -1,6 +1,5 @@
-/* components/ThemeToggle/ThemeToggle.css */
 .theme-toggle {
-  position: relative;
+  position: bottom;
   top: 50%;
   right: 15px;
   transform: translateY(-50%);
@@ -69,7 +68,6 @@
   transition: all 0.3s ease;
 }
 
-/* Responsive breakpoints */
 @media (max-width: 1024px) {
   .theme-toggle {
     right: 12px;

@@ -124,19 +124,17 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Focus state for accessibility */
+
 .forecast-tab:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 3px;
 }
 
-/* Press/Active click state */
 .forecast-tab:active {
   transform: translateY(0) scale(0.98);
   transition: transform 0.1s ease;
 }
 
-/* Forecast List Container */
 .forecast-list {
   display: grid;
   gap: 1rem;
@@ -145,7 +143,6 @@
   max-width: 100%;
 }
 
-/* Individual Forecast Items */
 .forecast-item {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
@@ -182,7 +179,6 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Typography */
 .forecast-date,
 .forecast-time {
   font-weight: 600;
@@ -213,7 +209,6 @@
   font-weight: 500;
 }
 
-/* Weather Icons */
 .forecast-icon {
   width: 50px;
   height: 50px;
@@ -226,7 +221,6 @@
   transform: scale(1.1) rotate(5deg);
 }
 
-/* Additional weather info */
 .forecast-details {
   display: flex;
   justify-content: space-between;
@@ -252,9 +246,6 @@
   font-weight: 600;
 }
 
-/* Responsive Design */
-
-/* Mobile - 320px */
 @media (max-width: 320px) {
   .forecast-container {
     padding: 0 0.5rem;
@@ -298,7 +289,6 @@
   }
 }
 
-/* Mobile Large - 428px */
 @media (min-width: 321px) and (max-width: 428px) {
   .forecast-tabs {
     padding: 0.3rem;
@@ -324,7 +314,6 @@
   }
 }
 
-/* Tablet - 720px */
 @media (min-width: 429px) and (max-width: 720px) {
   .forecast-tabs {
     padding: 0.4rem;
@@ -343,7 +332,6 @@
   }
 }
 
-/* Tablet Large - 1024px */
 @media (min-width: 721px) and (max-width: 1024px) {
   .forecast-tabs {
     padding: 0.45rem;
@@ -365,7 +353,6 @@
   }
 }
 
-/* Desktop - 1200px+ */
 @media (min-width: 1025px) {
   .forecast-tabs {
     padding: 0.5rem;
@@ -412,7 +399,6 @@
   }
 }
 
-/* Animation keyframes */
 @keyframes slideIn {
   from {
     opacity: 0;
