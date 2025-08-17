@@ -13,7 +13,7 @@ body {
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #35c6ff 100%);
   background-attachment: fixed;
   position: relative;
   padding: 20px;

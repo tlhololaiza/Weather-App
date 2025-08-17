@@ -1,32 +1,65 @@
+/* Base styles */
 .forecast-container {
   margin-top: 2rem;
+  padding: 0 1rem;
   text-align: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Updated to match component class names */
+/* Forecast Tabs Navigation */
 .forecast-tabs {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 0.375rem;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.forecast-tabs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .forecast-tab {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #1e3c72;
+  padding: 0.875rem 1.75rem;
+  border: none;
   border-radius: 25px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #ff6b35 100%);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 600;
-  font-size: 0.95rem;
-  color: #ffffff;
+  font-size: 0.925rem;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
   position: relative;
   overflow: hidden;
-  min-width: 100px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  min-width: 90px;
+  text-align: center;
 }
 
+/* Animated background for buttons */
 .forecast-tab::before {
   content: '';
   position: absolute;
@@ -34,76 +67,395 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.08), 
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: -1;
 }
 
 .forecast-tab:hover::before {
   left: 100%;
 }
 
+/* Hover state */
 .forecast-tab:hover {
-  background: linear-gradient(135deg, #ff6b35 0%, #1e3c72 50%, #2a5298 100%);
-  color: white;
-  border-color: #ff6b35;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  color: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px) scale(1.02);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
 }
 
+/* Active state */
 .forecast-tab.active {
-  background: linear-gradient(135deg, #ff6b35 0%, #2a5298 50%, #1e3c72 100%);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
-  border-color: #ff6b35;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.5);
 }
 
 .forecast-tab.active::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 3px;
-  background-color: #fbbf24;
-  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 23px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  z-index: -1;
 }
 
+/* Active state hover enhancement */
+.forecast-tab.active:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Focus state for accessibility */
+.forecast-tab:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* Press/Active click state */
 .forecast-tab:active {
-  transform: translateY(0px);
-  transition: transform 0.1s;
+  transform: translateY(0) scale(0.98);
+  transition: transform 0.1s ease;
 }
 
-/* Keep the existing forecast list styles */
+/* Forecast List Container */
 .forecast-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
   gap: 1rem;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  max-width: 100%;
 }
 
+/* Individual Forecast Items */
 .forecast-item {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 150px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
+.forecast-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.forecast-item:hover::before {
+  opacity: 1;
+}
+
+.forecast-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Typography */
 .forecast-date,
 .forecast-time {
   font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .forecast-temp {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+.forecast-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+/* Weather Icons */
 .forecast-icon {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  margin: 0.5rem auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.forecast-item:hover .forecast-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Additional weather info */
+.forecast-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.forecast-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.forecast-detail-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.forecast-detail-value {
+  font-weight: 600;
+}
+
+/* Responsive Design */
+
+/* Mobile - 320px */
+@media (max-width: 320px) {
+  .forecast-container {
+    padding: 0 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .forecast-tabs {
+    gap: 0.125rem;
+    padding: 0.25rem;
+    border-radius: 20px;
+  }
+  
+  .forecast-tab {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    min-width: 70px;
+    border-radius: 18px;
+  }
+  
+  .forecast-tab:hover {
+    transform: translateY(-1px) scale(1.01);
+  }
+  
+  .forecast-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .forecast-item {
+    padding: 1rem 0.5rem;
+  }
+  
+  .forecast-temp {
+    font-size: 1.4rem;
+  }
+  
+  .forecast-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Mobile Large - 428px */
+@media (min-width: 321px) and (max-width: 428px) {
+  .forecast-tabs {
+    padding: 0.3rem;
+    gap: 0.2rem;
+  }
+  
+  .forecast-tab {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    min-width: 80px;
+  }
+  
+  .forecast-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .forecast-item {
+    padding: 1.2rem 0.75rem;
+  }
+  
+  .forecast-temp {
+    font-size: 1.6rem;
+  }
+}
+
+/* Tablet - 720px */
+@media (min-width: 429px) and (max-width: 720px) {
+  .forecast-tabs {
+    padding: 0.4rem;
+    gap: 0.3rem;
+  }
+  
+  .forecast-tab {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 85px;
+  }
+  
+  .forecast-list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Tablet Large - 1024px */
+@media (min-width: 721px) and (max-width: 1024px) {
+  .forecast-tabs {
+    padding: 0.45rem;
+    gap: 0.35rem;
+  }
+  
+  .forecast-tab {
+    padding: 0.85rem 1.6rem;
+    font-size: 0.95rem;
+    min-width: 88px;
+  }
+  
+  .forecast-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .forecast-item {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Desktop - 1200px+ */
+@media (min-width: 1025px) {
+  .forecast-tabs {
+    padding: 0.5rem;
+    gap: 0.4rem;
+    border-radius: 35px;
+  }
+  
+  .forecast-tab {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    min-width: 95px;
+    border-radius: 30px;
+  }
+  
+  .forecast-tab:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+  }
+  
+  .forecast-tab.active:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+      0 15px 40px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  
+  .forecast-list {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    max-width: 1200px;
+  }
+  
+  .forecast-item {
+    padding: 2rem 1.5rem;
+  }
+  
+  .forecast-temp {
+    font-size: 2rem;
+  }
+  
+  .forecast-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.forecast-item {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.forecast-item:nth-child(1) { animation-delay: 0.1s; }
+.forecast-item:nth-child(2) { animation-delay: 0.2s; }
+.forecast-item:nth-child(3) { animation-delay: 0.3s; }
+.forecast-item:nth-child(4) { animation-delay: 0.4s; }
+.forecast-item:nth-child(5) { animation-delay: 0.5s; }
+.forecast-item:nth-child(6) { animation-delay: 0.6s; }
+.forecast-item:nth-child(7) { animation-delay: 0.7s; }
+
+/* Loading state */
+.forecast-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.forecast-loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
