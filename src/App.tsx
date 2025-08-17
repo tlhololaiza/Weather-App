@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useWeather } from './hooks/useWeather';
+import { ThemeProvider } from './contexts/ThemeContext';
 import type { ForecastType } from './types/weather';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -8,9 +9,10 @@ import HourlyForecast from './components/HourlyForecast/HourlyForecast';
 import DailyForecast from './components/DailyForecast/DailyForecast';
 import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
 import SavedLocations from './components/SavedLocations/SavedLocations';
+import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import './App.css';
 
-function App() {
+function AppContent() {
   const { currentWeather, forecast, loading, error, fetchWeatherData } = useWeather();
   const [activeForecast, setActiveForecast] = useState<ForecastType>('hourly');
 
@@ -31,6 +33,7 @@ function App() {
 
   return (
     <div className="app">
+      <ThemeToggle />
       <div className="app-container">
         <SearchBar onSearch={fetchWeatherData} loading={loading} />
         
@@ -59,6 +62,14 @@ function App() {
         )}
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
