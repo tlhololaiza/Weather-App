@@ -1,4 +1,6 @@
 import type { ForecastType } from '../../types/weather';
+import TabButton from '../TabButton/TabButton';
+import type { TabOption } from '../TabButton/TabButton';
 import './ForecastTabs.css';
 
 interface ForecastTabsProps {
@@ -7,24 +9,18 @@ interface ForecastTabsProps {
 }
 
 const ForecastTabs: React.FC<ForecastTabsProps> = ({ activeTab, onTabChange }) => {
-  const tabs: { id: ForecastType; label: string }[] = [
+  const tabs: TabOption<ForecastType>[] = [
     { id: 'hourly', label: 'Hourly' },
     { id: 'daily', label: 'Daily' },
     { id: 'weekly', label: 'Weekly' },
   ];
 
   return (
-    <div className="forecast-tabs">
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          className={`forecast-tab ${activeTab === tab.id ? 'active' : ''}`}
-          onClick={() => onTabChange(tab.id)}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
+    <TabButton
+      tabs={tabs}
+      activeTab={activeTab}
+      onTabChange={onTabChange}
+    />
   );
 };
 
