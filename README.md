@@ -1,69 +1,193 @@
-# React + TypeScript + Vite
+# ☀️ Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, feature-rich weather application built with React, TypeScript, and Vite. Get real-time weather information, forecasts, and manage your favorite locations with a beautiful glass-morphism UI that adapts to light and dark themes.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🌤️ Weather Information
+- **Real-time weather data** from OpenWeatherMap API
+- **Current conditions** including temperature, humidity, wind speed, visibility, pressure, sunrise, and sunset
+- **Temperature unit toggle** - Switch between Celsius and Fahrenheit
+- **Weather descriptions** with dynamic icon representations
 
-## Expanding the ESLint configuration
+### 📊 Forecasts
+- **Hourly Forecast** - 24 consecutive hours with interpolated data for smooth transitions
+- **Daily Forecast** - 5-day outlook with high/low temperatures and precipitation probability
+- **Weekly Forecast** - Extended 5-day forecast with detailed weather conditions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔍 Smart Search
+- **Live search suggestions** - Get city recommendations as you type (debounced API calls)
+- **Popular cities** - Quick access to frequently searched locations
+- **Geolocation support** - Automatically detect and display weather for your current location
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 💾 Location Management
+- **Save locations** - Bookmark your favorite cities for quick access
+- **Dropdown menu** - Easy navigation through saved locations with hamburger menu
+- **Smart alerts** - Visual notifications for save/remove actions
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 🎨 Beautiful UI/UX
+- **Glass-morphism design** - Modern frosted glass effect with backdrop blur
+- **Light/Dark themes** - Seamless theme switching with persistent preferences
+- **Responsive layout** - Optimized for desktop, tablet, and mobile devices
+- **Smooth animations** - Slide-in alerts, hover effects, and transitions
+- **Lucide React icons** - Professional, consistent iconography throughout
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🔄 Advanced Features
+- **Offline caching** - View cached weather data when offline
+- **Last update timestamp** - Know when your data was last refreshed
+- **Smart error handling** - Graceful fallback to cached data on network failures
+- **Alert system** - Toast notifications for success, error, info, and warning messages
+
+## 🛠️ Technologies Used
+
+- **React 19.1.1** - Modern React with hooks and functional components
+- **TypeScript 5.8.3** - Type-safe development
+- **Vite 7.1.2** - Lightning-fast build tool and dev server
+- **Lucide React 0.562.0** - Beautiful, consistent icon library
+- **OpenWeatherMap API** - Reliable weather data provider
+- **LocalStorage** - Client-side caching for offline support
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/weather-app.git
+   cd weather-app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up API key**
+   - The app uses OpenWeatherMap API (included in the code)
+   - For production, create a `.env` file and add your own API key:
+     ```
+     VITE_OPENWEATHER_API_KEY=your_api_key_here
+     ```
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   - Navigate to `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The optimized production build will be in the `dist` folder.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Preview Production Build
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run preview
 ```
+
+## 📁 Project Structure
+
+```
+Weather-App/
+├── src/
+│   ├── components/          # React components
+│   │   ├── Alert/          # Toast notification system
+│   │   ├── DailyForecast/  # 5-day forecast component
+│   │   ├── ForecastTabs/   # Tab navigation for forecasts
+│   │   ├── HourlyForecast/ # 24-hour forecast with interpolation
+│   │   ├── SavedLocations/ # Location management dropdown
+│   │   ├── SearchBar/      # Search with live suggestions
+│   │   ├── TabButton/      # Reusable tab button component
+│   │   ├── ThemeToggle/    # Light/Dark mode switcher
+│   │   ├── WeatherCard/    # Main weather display card
+│   │   └── WeeklyForecast/ # Extended weekly forecast
+│   ├── contexts/           # React Context providers
+│   │   ├── AlertContext.tsx    # Alert notification state
+│   │   └── ThemeContext.tsx    # Theme management
+│   ├── hooks/              # Custom React hooks
+│   │   └── useWeather.ts   # Weather data fetching & caching
+│   ├── services/           # API services
+│   │   └── weatherApi.ts   # OpenWeatherMap API integration
+│   ├── types/              # TypeScript type definitions
+│   │   └── weather.ts      # Weather data interfaces
+│   ├── utils/              # Utility functions
+│   │   └── storage.ts      # LocalStorage management
+│   ├── App.tsx             # Main application component
+│   ├── App.css             # Global styles and theme variables
+│   └── main.tsx            # Application entry point
+├── public/                 # Static assets
+├── index.html             # HTML template
+├── package.json           # Dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+├── vite.config.ts         # Vite configuration
+└── README.md              # This file
+```
+
+## 🎨 Features in Detail
+
+### Theme System
+- Automatic theme detection from system preferences
+- Manual toggle with persistent localStorage
+- CSS variables for consistent theming across components
+- Smooth transitions between themes
+
+### Caching Strategy
+- Weather data cached in localStorage on every successful fetch
+- Automatic cache restoration on app load
+- Fallback to cache when network requests fail
+- Timestamp tracking for data freshness
+
+### Alert System
+- Four types: Success (green), Error (red), Info (blue), Warning (orange)
+- Auto-dismiss after 4 seconds
+- Manual close with X button
+- Stacked alerts with smooth slide-in animations
+
+### Hourly Forecast Interpolation
+- Converts 3-hour API data to 24 consecutive hourly forecasts
+- Linear interpolation for temperature, feels-like, wind speed, and precipitation
+- Color-coded temperatures for visual clarity
+
+## 🔑 API Configuration
+
+The app uses the OpenWeatherMap API for weather data:
+- **Current Weather API** - Real-time conditions
+- **5 Day Forecast API** - 3-hour interval forecasts
+- **Geocoding API** - City search and coordinates
+
+API endpoints are managed in `src/services/weatherApi.ts` with built-in caching.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
+- Icons by [Lucide](https://lucide.dev/)
+- Built with [Vite](https://vitejs.dev/) and [React](https://react.dev/)
+
+---
+
+**Developed by Tlholo**

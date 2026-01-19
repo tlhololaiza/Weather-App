@@ -47,8 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
       );
       const data = await response.json();
       setSuggestions(data);
-    } catch (error) {
-      console.error('Failed to fetch city suggestions:', error);
+    } catch {
       setSuggestions([]);
     } finally {
       setFetchingSuggestions(false);

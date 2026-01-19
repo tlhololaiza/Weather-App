@@ -23,6 +23,10 @@ interface AlertProviderProps {
 export const AlertProvider: React.FC<AlertProviderProps> = ({ children }) => {
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
+  const removeAlert = useCallback((id: string) => {
+    setAlerts(prev => prev.filter(alert => alert.id !== id));
+  }, []);
+
   const showAlert = useCallback((type: AlertType, message: string) => {
     const id = `alert-${Date.now()}-${Math.random()}`;
     const newAlert: Alert = { id, type, message };
@@ -33,11 +37,7 @@ export const AlertProvider: React.FC<AlertProviderProps> = ({ children }) => {
     setTimeout(() => {
       removeAlert(id);
     }, 4000);
-  }, []);
-
-  const removeAlert = useCallback((id: string) => {
-    setAlerts(prev => prev.filter(alert => alert.id !== id));
-  }, []);
+  }, [removeAlert]);
 
   return (
     <AlertContext.Provider value={{ alerts, showAlert, removeAlert }}>
