@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { WeatherData, ForecastData } from '../types/weather';
 import { weatherApi } from '../services/weatherApi';
+import { useAlert } from '../contexts/AlertContext';
 
 export const useWeather = () => {
+  const { showAlert } = useAlert();
   const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(() => {
     // Initialize with cached data if available
     try {
@@ -42,8 +44,11 @@ export const useWeather = () => {
       setCurrentWeather(weatherData);
       setForecast(forecastData);
       setLastUpdate(weatherApi.getLastUpdate());
+      showAlert('success', `Weather data loaded for ${weatherData.name}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch weather data';
+      setError(errorMessage);
+      showAlert('error', errorMessage);
       // Data might still be set from cache, so we don't clear it
     } finally {
       setLoading(false);
@@ -63,8 +68,11 @@ export const useWeather = () => {
       setCurrentWeather(weatherData);
       setForecast(forecastData);
       setLastUpdate(weatherApi.getLastUpdate());
+      showAlert('success', `Weather data loaded for ${weatherData.name}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch weather data';
+      setError(errorMessage);
+      showAlert('error', errorMessage);
       // Data might still be set from cache, so we don't clear it
     } finally {
       setLoading(false);

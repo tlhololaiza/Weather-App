@@ -7,11 +7,22 @@ interface SearchBarProps {
   loading: boolean;
 }
 
+interface CitySuggestion {
+  name: string;
+  country: string;
+  state?: string;
+  lat: number;
+  lon: number;
+}
+
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState<CitySuggestion[]>([]);
+  const [fetchingSuggestions, setFetchingSuggestions] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Popular cities for suggestions with Lucide icons
   const popularCities = [
@@ -22,6 +33,27 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
     { name: 'Cape Town', icon: MapPin },
     { name: 'Dubai', icon: LandPlot }
   ];
+
+  const fetchCitySuggestions = async (query: string) => {
+    if (query.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    setFetchingSuggestions(true);
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=5&appid=2b886d2ea7ff4c2aeb201bf433764a44`
+      );
+      const data = await response.json();
+      setSuggestions(data);
+    } catch (error) {
+      console.error('Failed to fetch city suggestions:', error);
+      setSuggestions([]);
+    } finally {
+      setFetchingSuggestions(false);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,19 +67,48 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    setShowSuggestions(value.length === 0 && !loading);
+    
+    // Clear previous debounce timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    if (value.length === 0) {
+      setSuggestions([]);
+      setShowSuggestions(true);
+    } else if (value.length >= 2) {
+      setShowSuggestions(true);
+      // Debounce API calls - wait 300ms after user stops typing
+      debounceTimerRef.current = setTimeout(() => {
+        fetchCitySuggestions(value);
+      }, 300);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
   };
 
   const handleInputFocus = () => {
-    if (searchTerm.length === 0) {
-      setShowSuggestions(true);
+    setShowSuggestions(true);
+    if (searchTerm.length >= 2 && suggestions.length === 0) {
+      fetchCitySuggestions(searchTerm);
     }
   };
 
   const handleSuggestionClick = (cityName: string) => {
     setSearchTerm(cityName);
     setShowSuggestions(false);
-    onSearch(cityName);
+    setSuggestions([]);
+    onSea
+
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);rch(cityName);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -102,19 +163,44 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
 
       {showSuggestions && !loading && (
         <div className="search-suggestions visible">
-          {popularCities.map((city) => {
-            const IconComponent = city.icon;
-            return (
+          {fetchingSuggestions ? (
+            <div className="suggestion-item">
+              <Loader size={18} className="suggestion-icon" style={{ animation: 'spin 1s linear infinite' }} />
+              <span>Searching...</span>
+            </div>
+          ) : suggestions.length > 0 ? (
+            suggestions.map((city, index) => (
               <div
-                key={city.name}
+                key={`${city.name}-${city.country}-${index}`}
                 className="suggestion-item"
                 onClick={() => handleSuggestionClick(city.name)}
               >
-                <IconComponent size={18} className="suggestion-icon" />
-                <span>{city.name}</span>
+                <MapPin size={18} className="suggestion-icon" />
+                <span>
+                  {city.name}, {city.state ? `${city.state}, ` : ''}{city.country}
+                </span>
               </div>
-            );
-          })}
+            ))
+          ) : searchTerm.length === 0 ? (
+            popularCities.map((city) => {
+              const IconComponent = city.icon;
+              return (
+                <div
+                  key={city.name}
+                  className="suggestion-item"
+                  onClick={() => handleSuggestionClick(city.name)}
+                >
+                  <IconComponent size={18} className="suggestion-icon" />
+                  <span>{city.name}</span>
+                </div>
+              );
+            })
+          ) : searchTerm.length >= 2 && !fetchingSuggestions ? (
+            <div className="suggestion-item" style={{ opacity: 0.6, cursor: 'default' }}>
+              <Search size={18} className="suggestion-icon" />
+              <span>No cities found</span>
+            </div>
+          ) : null}
         </div>
       )}
     </div>

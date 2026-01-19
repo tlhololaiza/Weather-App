@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useWeather } from './hooks/useWeather';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AlertProvider, useAlert } from './contexts/AlertContext';
 import type { ForecastType } from './types/weather';
 import { Snowflake } from 'lucide-react';
 import WeatherCard from './components/WeatherCard/WeatherCard';
@@ -11,10 +12,12 @@ import DailyForecast from './components/DailyForecast/DailyForecast';
 import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
 import SavedLocations from './components/SavedLocations/SavedLocations';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+import Alert from './components/Alert/Alert';
 import './App.css';
 
 function AppContent() {
   const { currentWeather, forecast, loading, error, lastUpdate, fetchWeatherData } = useWeather();
+  const { alerts } = useAlert();
   const [activeForecast, setActiveForecast] = useState<ForecastType>('hourly');
 
   const renderForecast = () => {
@@ -34,6 +37,11 @@ function AppContent() {
 
   return (
     <div className="app">
+      <div className="alerts-container">
+        {alerts.map(alert => (
+          <Alert key={alert.id} alert={alert} />
+        ))}
+      </div>
       <div className="app-header">
         <div className="header-title">
           <Snowflake size={32} className="header-icon" />
@@ -81,7 +89,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <AlertProvider>
+        <AppContent />
+      </AlertProvider>
     </ThemeProvider>
   );
 }
