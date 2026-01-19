@@ -124,11 +124,14 @@ body {
   align-items: center;
   gap: 12px;
   width: 100%;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .search-section .search-bar {
   flex: 1;
   margin-bottom: 0;
+  min-width: 0;
 }
 
 .saved-locations-inline {
