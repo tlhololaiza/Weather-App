@@ -3,10 +3,31 @@ import type { WeatherData, ForecastData } from '../types/weather';
 import { weatherApi } from '../services/weatherApi';
 
 export const useWeather = () => {
-  const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
-  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(() => {
+    // Initialize with cached data if available
+    try {
+      const cached = localStorage.getItem('weather-app-cache-weather');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  
+  const [forecast, setForecast] = useState<ForecastData | null>(() => {
+    // Initialize with cached data if available
+    try {
+      const cached = localStorage.getItem('weather-app-cache-forecast');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastUpdate, setLastUpdate] = useState<string | null>(() => {
+    return localStorage.getItem('weather-app-cache-timestamp');
+  });
 
   const fetchWeatherData = async (city: string) => {
     setLoading(true);
@@ -20,8 +41,10 @@ export const useWeather = () => {
       
       setCurrentWeather(weatherData);
       setForecast(forecastData);
+      setLastUpdate(weatherApi.getLastUpdate());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+      // Data might still be set from cache, so we don't clear it
     } finally {
       setLoading(false);
     }
@@ -39,8 +62,10 @@ export const useWeather = () => {
       
       setCurrentWeather(weatherData);
       setForecast(forecastData);
+      setLastUpdate(weatherApi.getLastUpdate());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+      // Data might still be set from cache, so we don't clear it
     } finally {
       setLoading(false);
     }
@@ -64,6 +89,7 @@ export const useWeather = () => {
     forecast,
     loading,
     error,
+    lastUpdate,
     fetchWeatherData,
     fetchWeatherByCoords,
   };

@@ -5,9 +5,10 @@ import './WeatherCard.css';
 
 interface WeatherCardProps {
   weather: WeatherData;
+  lastUpdate?: string | null;
 }
 
-const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
+const WeatherCard: React.FC<WeatherCardProps> = ({ weather, lastUpdate }) => {
   const [isCelsius, setIsCelsius] = useState(true);
   
   // Helper function to convert Celsius to Fahrenheit
@@ -66,6 +67,11 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
         <div className="weather-description">
           {capitalizedDescription}
         </div>
+        {lastUpdate && (
+          <div className="last-update">
+            Last updated: {new Date(lastUpdate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+          </div>
+        )}
       </div>
       
       <div className="weather-details">

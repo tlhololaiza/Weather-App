@@ -14,7 +14,7 @@ import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import './App.css';
 
 function AppContent() {
-  const { currentWeather, forecast, loading, error, fetchWeatherData } = useWeather();
+  const { currentWeather, forecast, loading, error, lastUpdate, fetchWeatherData } = useWeather();
   const [activeForecast, setActiveForecast] = useState<ForecastType>('hourly');
 
   const renderForecast = () => {
@@ -65,7 +65,7 @@ function AppContent() {
         
         {currentWeather && (
           <>
-            <WeatherCard weather={currentWeather} />
+            <WeatherCard weather={currentWeather} lastUpdate={lastUpdate} />
             <ForecastTabs 
               activeTab={activeForecast}
               onTabChange={setActiveForecast}

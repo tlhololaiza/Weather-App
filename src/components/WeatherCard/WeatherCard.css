@@ -79,6 +79,14 @@
   font-weight: 400;
 }
 
+.last-update {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 8px;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
 .weather-details {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
