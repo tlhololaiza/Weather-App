@@ -1,0 +1,249 @@
+.saved-locations {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.saved-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-width: 0;
+}
+
+.save-current-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 8px 14px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+  min-width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.save-current-btn:hover:not(:disabled) {
+  background: var(--card-hover);
+  border-color: var(--glass-border);
+  transform: translateY(-1px);
+}
+
+.save-current-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  color: #4CAF50;
+}
+
+.saved-dropdown {
+  position: relative;
+}
+
+.toggle-saved-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 8px 14px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.toggle-saved-btn:hover {
+  background: var(--card-hover);
+  border-color: var(--glass-border);
+  transform: translateY(-1px);
+}
+
+.saved-count {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.saved-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 16px;
+  color: white;
+  z-index: 1000;
+  min-width: 220px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.saved-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.saved-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.saved-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.saved-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 10px 12px;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.saved-item:last-child {
+  margin-bottom: 0;
+}
+
+.saved-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(2px);
+}
+
+.location-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  text-align: left;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.location-btn:hover {
+  color: var(--icon-color);
+}
+
+.location-name {
+  flex: 1;
+}
+
+.remove-location-btn {
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.remove-location-btn:hover {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+}
+  color: white;
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.location-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.remove-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .saved-locations {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  
+  .saved-header {
+    flex-wrap: nowrap;
+    min-width: 0;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .saved-locations {
+    gap: 8px;
+    min-width: 0;
+  }
+  
+  .saved-header {
+    flex-wrap: nowrap;
+    gap: 8px;
+    min-width: 0;
+  }
+  
+  .save-current-btn,
+  .toggle-saved-btn {
+    font-size: 12px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .saved-item {
+    width: 100%;
+  }
+}

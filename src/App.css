@@ -1,0 +1,295 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-bg: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --text-primary: #1a1a1a;
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --error-color: #d32f2f;
+  --accent-1: rgba(100, 149, 237, 0.2);
+  --accent-2: rgba(255, 182, 193, 0.3);
+  --accent-3: rgba(255, 215, 0, 0.2);
+  --card-hover: rgba(255, 255, 255, 0.9);
+  --icon-color: #1565c0;
+  --detail-icon-color: #1565c0;
+}
+
+.dark {
+  --primary-bg: linear-gradient(135deg, #0a0e1a 0%, #121828 50%, #1a2332 100%);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --error-color: #ff8a8a;
+  --accent-1: rgba(138, 43, 226, 0.15);
+  --accent-2: rgba(255, 20, 147, 0.15);
+  --accent-3: rgba(0, 191, 255, 0.15);
+  --card-hover: rgba(255, 255, 255, 0.12);
+  --icon-color: rgba(255, 255, 255, 0.9);
+  --detail-icon-color: rgba(255, 200, 124, 0.9);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--primary-bg);
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, var(--accent-1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--accent-2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, var(--accent-3) 0%, transparent 50%);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  position: relative;
+  z-index: 100;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.header-icon {
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  color: var(--icon-color);
+  transition: color 0.3s ease;
+}
+
+.header-title h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  padding: 0 40px 40px;
+  width: 100%;
+}
+
+.search-and-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.search-section .search-bar {
+  flex: 1;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.saved-locations-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.error-message {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 15px 20px;
+  color: var(--error-color);
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.loading {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Global glass morphism styling for components */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dark .glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Text color utilities */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Button styling */
+.btn-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 10px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.dark .btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-glass:active {
+  transform: translateY(0);
+}
+
+/* Input styling */
+.input-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 12px 16px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.input-glass::placeholder {
+  color: var(--text-secondary);
+}
+
+.input-glass:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .input-glass:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 16px 24px;
+  }
+  
+  .header-title h1 {
+    font-size: 24px;
+  }
+  
+  .app-container {
+    padding: 0 24px 24px;
+    gap: 18px;
+  }
+  
+  .search-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .saved-locations-inline {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 16px;
+  }
+  
+  .header-title {
+    gap: 8px;
+  }
+  
+  .header-icon {
+    font-size: 28px;
+  }
+  
+  .header-title h1 {
+    font-size: 20px;
+  }
+  
+  .app-container {
+    padding: 0 16px 16px;
+    gap: 12px;
+  }
+}
