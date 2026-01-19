@@ -1,5 +1,5 @@
 import type { ForecastData } from '../../types/weather';
-import { Cloud, CloudRain, Sun, Moon, Wind, CloudSnow, CloudFog, CloudDrizzle, CloudLightning } from 'lucide-react';
+import { Cloud, CloudRain, Sun, Moon, CloudSnow, CloudFog, CloudDrizzle, CloudLightning } from 'lucide-react';
 import './WeeklyForecast.css';
 
 interface WeeklyForecastProps {

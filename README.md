@@ -96,6 +96,69 @@ The optimized production build will be in the `dist` folder.
 npm run preview
 ```
 
+## 🚀 Deploy to Vercel
+
+### Option 1: Deploy via Vercel Dashboard
+
+1. **Push your code to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Add New Project"
+   - Import your GitHub repository
+   - Vercel will auto-detect Vite framework
+
+3. **Configure (if needed)**
+   - Framework Preset: `Vite`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+4. **Deploy**
+   - Click "Deploy" and wait for the build to complete
+   - Your app will be live at `https://your-app.vercel.app`
+
+### Option 2: Deploy via Vercel CLI
+
+```bash
+# Install Vercel CLI globally
+npm i -g vercel
+
+# Login to Vercel
+vercel login
+
+# Deploy
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+### Environment Variables (Optional)
+
+If you want to use your own OpenWeatherMap API key:
+
+1. In Vercel Dashboard, go to: **Project Settings → Environment Variables**
+2. Add: `VITE_OPENWEATHER_API_KEY` with your API key
+3. Redeploy the project
+
+### Troubleshooting Deployment
+
+**Build fails?**
+- Check that all dependencies are in `package.json`
+- Ensure TypeScript has no errors: `npm run build` locally
+- Verify Node version compatibility (16+)
+
+**App not loading?**
+- Check browser console for errors
+- Ensure API key is working
+- Verify `dist` folder is being generated correctly
+
 ## 📁 Project Structure
 
 ```

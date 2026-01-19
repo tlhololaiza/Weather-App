@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
   const [fetchingSuggestions, setFetchingSuggestions] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimerRef = useRef<number | null>(null);
 
   // Popular cities for suggestions with Lucide icons
   const popularCities = [
@@ -98,7 +98,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
     setSearchTerm(cityName);
     setShowSuggestions(false);
     setSuggestions([]);
-    onSea
+    onSearch(cityName);
+  };
 
   // Cleanup debounce timer on unmount
   useEffect(() => {
@@ -107,8 +108,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
         clearTimeout(debounceTimerRef.current);
       }
     };
-  }, []);rch(cityName);
-  };
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {

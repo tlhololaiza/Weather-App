@@ -19,12 +19,9 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather, lastUpdate }) => {
   // Get temperatures in both units
   const tempCelsius = Math.round(weather.main.temp);
   const tempFahrenheit = celsiusToFahrenheit(weather.main.temp);
-  const feelsLikeCelsius = Math.round(weather.main.feels_like);
-  const feelsLikeFahrenheit = celsiusToFahrenheit(weather.main.feels_like);
   
   // Current display values based on selected unit
   const currentTemp = isCelsius ? tempCelsius : tempFahrenheit;
-  const currentFeelsLike = isCelsius ? feelsLikeCelsius : feelsLikeFahrenheit;
   const tempUnit = isCelsius ? '°C' : '°F';
   
   const humidity = weather.main.humidity;
