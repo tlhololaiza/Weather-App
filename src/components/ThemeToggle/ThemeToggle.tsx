@@ -1,5 +1,6 @@
 // components/ThemeToggle/ThemeToggle.tsx
 import { useTheme } from '../../contexts/ThemeContext';
+import { Moon, Sun } from 'lucide-react';
 import './ThemeToggle.css';
 
 const ThemeToggle = () => {
@@ -15,7 +16,7 @@ const ThemeToggle = () => {
       <div className="theme-toggle-track">
         <div className="theme-toggle-thumb">
           <span className="theme-toggle-icon">
-            {theme === 'light' ? '🌙' : '☀️'}
+            {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
           </span>
         </div>
       </div>

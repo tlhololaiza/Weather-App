@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Search, Loader, Building2, Building, LandPlot, MapPin } from 'lucide-react';
 import './SearchBar.css';
 
 interface SearchBarProps {
@@ -12,14 +13,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Popular cities for suggestions
+  // Popular cities for suggestions with Lucide icons
   const popularCities = [
-    { name: 'Pretoria', icon: '🏙️' },
-    { name: 'London', icon: '🌁' },
-    { name: 'Johannesburg', icon: '🗼' },
-    { name: 'Paris', icon: '🗼' },
-    { name: 'Cape Town', icon: '🏖️' },
-    { name: 'Dubai', icon: '🏜️' }
+    { name: 'Pretoria', icon: Building2 },
+    { name: 'London', icon: Building },
+    { name: 'Johannesburg', icon: Building2 },
+    { name: 'Paris', icon: Building },
+    { name: 'Cape Town', icon: MapPin },
+    { name: 'Dubai', icon: LandPlot }
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -72,7 +73,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
     <div className="search-bar" ref={containerRef}>
       <form onSubmit={handleSubmit}>
         <div className={`search-input-container ${loading ? 'loading' : ''} ${searchTerm ? 'has-value' : ''}`}>
-          <span className="search-icon">🔍</span>
+          <Search size={20} className="search-icon" />
           <input
             ref={inputRef}
             type="text"
@@ -86,7 +87,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
             autoComplete="off"
             spellCheck={false}
           />
-          {loading && <div className="search-loading">⏳</div>}
+          {loading && <Loader size={20} className="search-loading" />}
           {(searchTerm || showSuggestions) && !loading && (
             <button 
               type="submit" 
@@ -101,16 +102,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, loading }) => {
 
       {showSuggestions && !loading && (
         <div className="search-suggestions visible">
-          {popularCities.map((city) => (
-            <div
-              key={city.name}
-              className="suggestion-item"
-              onClick={() => handleSuggestionClick(city.name)}
-            >
-              <span className="suggestion-icon">{city.icon}</span>
-              <span>{city.name}</span>
-            </div>
-          ))}
+          {popularCities.map((city) => {
+            const IconComponent = city.icon;
+            return (
+              <div
+                key={city.name}
+                className="suggestion-item"
+                onClick={() => handleSuggestionClick(city.name)}
+              >
+                <IconComponent size={18} className="suggestion-icon" />
+                <span>{city.name}</span>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

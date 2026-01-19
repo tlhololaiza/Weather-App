@@ -1,4 +1,5 @@
 import type { ForecastData } from '../../types/weather';
+import { Cloud, CloudRain, Sun, Moon, Wind, CloudSnow, CloudFog, CloudDrizzle, CloudLightning } from 'lucide-react';
 import './DailyForecast.css';
 
 interface DailyForecastProps {
@@ -25,18 +26,28 @@ const DailyForecast: React.FC<DailyForecastProps> = ({ forecast }) => {
   };
 
   const getWeatherIcon = (iconCode: string) => {
-    const iconMap: { [key: string]: string } = {
-      '01d': '☀️', '01n': '🌙',
-      '02d': '⛅', '02n': '☁️',
-      '03d': '☁️', '03n': '☁️',
-      '04d': '☁️', '04n': '☁️',
-      '09d': '🌧️', '09n': '🌧️',
-      '10d': '🌦️', '10n': '🌧️',
-      '11d': '⛈️', '11n': '⛈️',
-      '13d': '❄️', '13n': '❄️',
-      '50d': '🌫️', '50n': '🌫️',
+    const iconProps = { size: 28, className: 'day-icon' };
+    const iconMap: { [key: string]: React.ReactNode } = {
+      '01d': <Sun {...iconProps} />,
+      '01n': <Moon {...iconProps} />,
+      '02d': <Cloud {...iconProps} />,
+      '02n': <Cloud {...iconProps} />,
+      '03d': <Cloud {...iconProps} />,
+      '03n': <Cloud {...iconProps} />,
+      '04d': <Cloud {...iconProps} />,
+      '04n': <Cloud {...iconProps} />,
+      '09d': <CloudDrizzle {...iconProps} />,
+      '09n': <CloudDrizzle {...iconProps} />,
+      '10d': <CloudRain {...iconProps} />,
+      '10n': <CloudRain {...iconProps} />,
+      '11d': <CloudLightning {...iconProps} />,
+      '11n': <CloudLightning {...iconProps} />,
+      '13d': <CloudSnow {...iconProps} />,
+      '13n': <CloudSnow {...iconProps} />,
+      '50d': <CloudFog {...iconProps} />,
+      '50n': <CloudFog {...iconProps} />,
     };
-    return iconMap[iconCode] || '☀️';
+    return iconMap[iconCode] || <Sun {...iconProps} />;
   };
 
   return (

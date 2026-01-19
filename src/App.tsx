@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWeather } from './hooks/useWeather';
 import { ThemeProvider } from './contexts/ThemeContext';
 import type { ForecastType } from './types/weather';
+import { Snowflake } from 'lucide-react';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import ForecastTabs from './components/ForecastTabs/ForecastTabs';
@@ -33,9 +34,30 @@ function AppContent() {
 
   return (
     <div className="app">
-      <ThemeToggle />
+      <div className="app-header">
+        <div className="header-title">
+          <Snowflake size={32} className="header-icon" />
+          <h1>Weather</h1>
+        </div>
+        <ThemeToggle />
+      </div>
       <div className="app-container">
-        <SearchBar onSearch={fetchWeatherData} loading={loading} />
+        <div className="search-section">
+          <SearchBar onSearch={fetchWeatherData} loading={loading} />
+          {currentWeather && (
+            <div className="saved-locations-inline">
+              <SavedLocations 
+                currentLocation={{
+                  id: currentWeather.id.toString(),
+                  name: currentWeather.name,
+                  country: currentWeather.sys.country,
+                  coord: currentWeather.coord
+                }}
+                onLocationSelect={fetchWeatherData}
+              />
+            </div>
+          )}
+        </div>
         
         {error && <div className="error-message">{error}</div>}
         
@@ -44,15 +66,6 @@ function AppContent() {
         {currentWeather && (
           <>
             <WeatherCard weather={currentWeather} />
-            <SavedLocations 
-              currentLocation={{
-                id: currentWeather.id.toString(),
-                name: currentWeather.name,
-                country: currentWeather.sys.country,
-                coord: currentWeather.coord
-              }}
-              onLocationSelect={fetchWeatherData}
-            />
             <ForecastTabs 
               activeTab={activeForecast}
               onTabChange={setActiveForecast}

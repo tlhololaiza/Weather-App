@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { WeatherData } from '../../types/weather';
+import { Droplets, Wind, Eye, Gauge, Sunrise, Sunset, MapPin } from 'lucide-react';
 import './WeatherCard.css';
 
 interface WeatherCardProps {
@@ -38,7 +39,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
     <div className="weather-card">
       <div className="weather-header">
         <div className="location-info">
-          <div className="location-icon">📍</div>
+          <MapPin size={20} className="location-icon" />
           <span className="location-name">{weather.name}</span>
         </div>
         <div className="temperature-toggle">
@@ -69,16 +70,34 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
       
       <div className="weather-details">
         <div className="weather-detail">
+          <Droplets className="detail-icon" size={24} />
           <div className="detail-label">Humidity</div>
           <div className="detail-value">{humidity}%</div>
         </div>
         <div className="weather-detail">
+          <Wind className="detail-icon" size={24} />
           <div className="detail-label">Wind</div>
           <div className="detail-value">{windSpeed} km/h</div>
         </div>
         <div className="weather-detail">
-          <div className="detail-label">Feels Like</div>
-          <div className="detail-value">{currentFeelsLike}{tempUnit}</div>
+          <Eye className="detail-icon" size={24} />
+          <div className="detail-label">Visibility</div>
+          <div className="detail-value">{(weather.visibility / 1000).toFixed(1)} km</div>
+        </div>
+        <div className="weather-detail">
+          <Gauge className="detail-icon" size={24} />
+          <div className="detail-label">Pressure</div>
+          <div className="detail-value">{weather.main.pressure} hPa</div>
+        </div>
+        <div className="weather-detail">
+          <Sunrise className="detail-icon" size={24} />
+          <div className="detail-label">Sunrise</div>
+          <div className="detail-value">{new Date(weather.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</div>
+        </div>
+        <div className="weather-detail">
+          <Sunset className="detail-icon" size={24} />
+          <div className="detail-label">Sunset</div>
+          <div className="detail-value">{new Date(weather.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</div>
         </div>
       </div>
     </div>
